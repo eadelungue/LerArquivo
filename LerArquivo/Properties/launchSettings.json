@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LerArquivoCP": {
+      "commandName": "Project",
+      "commandLineArgs": "./ArquivoTeste"
+    }
+  }
+}
