@@ -5,8 +5,14 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        string pasta = args[0];
 
+        string pasta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"ArquivoTeste");
+
+        if (args !=null && args.Length > 0) 
+        {
+            pasta = args[0];
+        }
+        
         IList<Layout> listaLayout = new List<Layout>();
                 
         IList<CampoLayout> campos = new List<CampoLayout>();
