@@ -5,6 +5,16 @@ namespace LerArquivo
 {
     public class CampoLayout: Campo
     {
+
+        public CampoLayout(string nome, object? valor) : base(nome, valor)
+        {   
+                   
+        }
+        public CampoLayout(): base()
+        {
+           
+        }
+
         public enum TipoCampo
         {
             Texto = 1,
@@ -17,28 +27,28 @@ namespace LerArquivo
         public TipoCampo Tipo  { get; set; }
         public string Formato { get; set; }
 
-        public void setValor(string valor)
+        public object Formatar(string valor)
         {
             if (Tipo == TipoCampo.Data)
             {
                 CultureInfo provider = CultureInfo.InvariantCulture;
                 DateTime? data= DateTime.ParseExact(valor, Formato, provider);
-                Valor = data;
+                return data;
             }
             else if (Tipo == TipoCampo.Inteiro)
             {                
                 int? data = int.Parse(valor);
-                Valor = data;
+                return data;
             }
             else if (Tipo == TipoCampo.Decimal)
             {
                 CultureInfo provider = CultureInfo.InvariantCulture;
                 decimal? data = decimal.Parse(valor, provider);
-                Valor = data;
+                return data;
             }
             else
             {
-                Valor = valor;
+                return valor;
             }
         }
 

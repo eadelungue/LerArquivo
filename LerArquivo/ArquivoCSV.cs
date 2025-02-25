@@ -37,10 +37,8 @@ namespace LerArquivo
                     registro.ListaCampos = new List<Campo>();
 
                     foreach (CampoLayout item in layoutCSV.LayoutRegistros.ListaCampos)
-                    {
-                        CampoLayout camp = new CampoLayout() { Descricao = item.Descricao, Formato= item.Formato, Nome = item.Nome, Ordem = item.Ordem, Tipo = item.Tipo };
-                        camp.setValor(campos[item.Ordem]);
-                        registro.ListaCampos.Add(camp);
+                    {                        
+                        registro.ListaCampos.Add(new Campo(item.Nome, item.Formatar(campos[item.Ordem])));
                     }                    
                     this.RegistrosArquivo.Add(registro);
                 }
