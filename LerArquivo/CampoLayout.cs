@@ -26,6 +26,13 @@ namespace LerArquivo
         public string Descricao { get; set; }
         public TipoCampo Tipo  { get; set; }
         public string Formato { get; set; }
+        public int? PosicaoInicial { get; set; }
+        public int? QuantidadeCaracteres { get; set; }
+
+        public string ObterTextoPosicional(string linha) 
+        {            
+            return linha.Substring(PosicaoInicial.GetValueOrDefault(), QuantidadeCaracteres.GetValueOrDefault()).Trim();
+        }
 
         public object Formatar(string valor)
         {

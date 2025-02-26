@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="ArquivoTeste\PedidosAmazon.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="ArquivoTeste\PedidosBahia2.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

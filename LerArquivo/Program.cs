@@ -14,7 +14,8 @@ internal class Program
         }
         
         IList<Layout> listaLayout = new List<Layout>();
-                
+
+        //csv        
         IList<CampoLayout> campos = new List<CampoLayout>();
         campos.Add(new CampoLayout() { Ordem = 0, Tipo = CampoLayout.TipoCampo.Inteiro, Nome = "Id" });
         campos.Add(new CampoLayout() { Ordem = 1, Tipo = CampoLayout.TipoCampo.Inteiro, Nome = "Pedido" });
@@ -26,6 +27,17 @@ internal class Program
 
         listaLayout.Add(new LayoutCSV(1, "*Bahia*.csv", "CSB", "Casas Bhaia CSV", layoutRegistro, true));
 
+        //posicinal
+        IList<CampoLayout> camposPos = new List<CampoLayout>();
+        camposPos.Add(new CampoLayout() { PosicaoInicial = 0, QuantidadeCaracteres = 1, Tipo = CampoLayout.TipoCampo.Inteiro, Nome = "IdentitificadorRegistro" });
+        camposPos.Add(new CampoLayout() { PosicaoInicial = 1, QuantidadeCaracteres = 12, Tipo = CampoLayout.TipoCampo.Inteiro, Nome = "Pedido" });
+        camposPos.Add(new CampoLayout() { PosicaoInicial = 11, QuantidadeCaracteres = 8, Tipo = CampoLayout.TipoCampo.Data, Nome = "Data", Formato = "ddMMyyyy" });
+        camposPos.Add(new CampoLayout() { PosicaoInicial = 19, QuantidadeCaracteres = 28, Tipo = CampoLayout.TipoCampo.Texto, Nome = "Categoria" });
+        camposPos.Add(new CampoLayout() { PosicaoInicial = 47, QuantidadeCaracteres = 13, Tipo = CampoLayout.TipoCampo.Decimal, Nome = "Valor" });
+
+        RegistroLayout layoutRegistroPos = new RegistroLayout(camposPos);
+
+        listaLayout.Add(new LayoutPosicional(1, "*Amazon*.txt", "AMZ", "Arquivo amazon posicional", layoutRegistroPos,"1",null,"0", null,"2"));
 
         foreach (var itemLayout in listaLayout)
         {
@@ -33,17 +45,24 @@ internal class Program
 
             foreach (var arquivo in aquivos)
             {
+                Arquivo arq;
+
                 if (itemLayout is LayoutCSV)
                 {
-                    ArquivoCSV csv = new ArquivoCSV(arquivo, itemLayout);
-                    csv.Ler();
-                    Console.WriteLine(csv.ToString());
-                    if (csv.RegistrosArquivo != null && csv.RegistrosArquivo.Count() > 0)
-                        foreach (var item in csv.RegistrosArquivo)
-                        {
-                            Console.WriteLine(item.ToString());
-                        }
+                    arq = new ArquivoCSV(arquivo, itemLayout);                    
                 }
+                else
+                {
+                    arq = new ArquivoPosicional(arquivo, itemLayout);                    
+                }
+
+                arq.Ler();
+                Console.WriteLine(arq.ToString());
+                if (arq.RegistrosArquivo != null && arq.RegistrosArquivo.Count() > 0)
+                    foreach (var item in arq.RegistrosArquivo)
+                    {
+                        Console.WriteLine(item.ToString());
+                    }
             }
         }
     }
